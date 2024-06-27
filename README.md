@@ -1,46 +1,81 @@
-# Functions and Errors
+# Functions and Errors: Passport Eligibility
 
-This project is to demonstrate the use of assert(), revert() and require() statements
+This project demonstrates the use of `assert()`, `revert()`, and `require()` statements in Solidity.
 
 ## Description
 
-* The assert() takes only one parameter as input, that is, the condition. If the conditions is true the execution continues.
-  Here The usingAssert() function takes two parameters (uint a, uint b) and returns the value of (a/b). And the assert() handler makes sure the value of 'b' is not 0.
-  ```shell
-  function usingAssert ( uint a, uint b) public pure returns(uint){
-        
-        assert(b!=0);
-        return a/b;
-    }
-  ```
-* The revert() can be used as flagging mechanism, it reverts all the changes back to initial state thus saving further gas loss.
- Here The usingRevert() function also takes two parameters (uint a, uint b) and returns the value of (a/b). And if the value of 'b' is 0 then the revert() handler reverts the whole state with a message "Cannot divide by zero". if b!=0 then the execution will continue.
-  ```shell
-  function usingRevert (uint a, uint b) public pure returns(uint){
-        if(b==0){
-            revert("Cannot divide by zero");
-        }
-        else{
-            return a/b;
-            
+The contract `ErrorHandling` checks the age eligibility for applying for a passport in different countries using `require`, `assert`, and `revert` statements.
+
+### `require()` Statement
+
+The `require()` statement is used to validate inputs and conditions before execution. If the condition is false, it reverts the transaction with an optional error message, saving gas.
+
+```solidity
+function passportAcceptanceRequire(string memory _country, uint _age) public view returns(string memory) {
+    for(uint i = 0; i < countryAgeEligibility.length; i++) {
+        if(keccak256(abi.encodePacked(countryAgeEligibility[i].country)) == keccak256(abi.encodePacked(_country))) {
+            require(_age >= countryAgeEligibility[i].age, "Passport Rejected you are too young to apply");
+            return "Passport Accepted";
         }
     }
-  ```
-* The require() statement has two parameters, one the the condition, second is the message that is to be dysplayed if the condition fails (second condition is optional)
- Here The usingRequire() function takes a parameters (address add). And the require() handler makes sure that the add is of the message.sender else "Invalid owner" message will be displayed.
-  ```shell
-  function usingRequire (address add) public view{
+    return "Country not found";
+}
+```
 
-        require(add == msg.sender, "Invalid owner");
+### `assert()` Statement
 
+The `assert()` statement is used to check for conditions that should never be false. If the condition is false, it uses up all gas and reverts the transaction.
+
+```solidity
+function passportAcceptanceAssert(string memory _country, uint _age) public view returns(string memory) {
+    for(uint i = 0; i < countryAgeEligibility.length; i++) {
+        if(keccak256(abi.encodePacked(countryAgeEligibility[i].country)) == keccak256(abi.encodePacked(_country))) {
+            assert(_age >= countryAgeEligibility[i].age);
+            return "Passport Accepted";
+        }
     }
-  ```
-  
+    return "Country not found";
+}
+```
+
+### `revert()` Statement
+
+The `revert()` statement is used to flag an error and revert the transaction with an optional error message.
+
+```solidity
+function passportAcceptanceRevert(string memory _country, uint _age) public view returns(string memory) {
+    for(uint i = 0; i < countryAgeEligibility.length; i++) {
+        if(keccak256(abi.encodePacked(countryAgeEligibility[i].country)) == keccak256(abi.encodePacked(_country))) {
+            if(_age >= countryAgeEligibility[i].age) {
+                return "Passport Accepted";
+            } else {
+                revert("Passport Rejected You are too young to apply");
+            }
+        }
+    }
+    return "Country not found";
+}
+```
+
+### Show Country Names
+
+The `showCountryName()` function returns a string of all country names in the eligibility list.
+
+```solidity
+function showCountryName() public view returns(string memory) {
+    string memory countries;
+    for(uint i = 0; i < countryAgeEligibility.length; i++) {
+        countries = string(abi.encodePacked(countries, countryAgeEligibility[i].country, " "));
+    }
+    return countries;
+}
+```
+
 ## Authors
 
-* Name: Vibhansh Alok
-* MetacrafterID: RuffledZest (vibhanshalok@gmail.com)
-* Loom Video Link: https://www.loom.com/share/5c4b607a3ab34dbeac899468e0b29d0c
+- **Name:** Vibhansh Alok
+- **MetacrafterID:** RuffledZest (vibhanshalok@gmail.com)
+- **Loom Video Link:** https://www.loom.com/share/ee7a9ed81b5a453eae283438b1ca42e6
 
 ## License
 
