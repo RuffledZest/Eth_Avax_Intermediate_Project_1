@@ -6,6 +6,20 @@ This project demonstrates the use of assert(), revert(), and require() statement
 
 The contract "ErrorHandling" checks the age eligibility for applying for a passport in different countries using require, assert, and revert statements.
 
+* The structure and the array for storing Country Age Eligblity for Passport using constructor:
+  ```solidity
+  struct ContuntryAgeEligibility {
+        string country;
+        uint age;
+    }
+    ContuntryAgeEligibility[] public countryAgeEligibility;
+    constructor() {
+        countryAgeEligibility.push(ContuntryAgeEligibility("IND", 18));
+        countryAgeEligibility.push(ContuntryAgeEligibility("USA", 16));
+        countryAgeEligibility.push(ContuntryAgeEligibility("AUS", 12));
+    }
+  ```
+
 * require() Statement
 
 The require() statement is used to validate inputs and conditions before execution. If the condition is false, it reverts the transaction with an optional error message, saving gas.
