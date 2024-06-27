@@ -1,14 +1,14 @@
 # Functions and Errors: Passport Eligibility
 
-This project demonstrates the use of `assert()`, `revert()`, and `require()` statements in Solidity.
+This project demonstrates the use of assert(), revert(), and require() statements in Solidity.
 
 ## Description
 
-The contract `ErrorHandling` checks the age eligibility for applying for a passport in different countries using `require`, `assert`, and `revert` statements.
+The contract "ErrorHandling" checks the age eligibility for applying for a passport in different countries using require, assert, and revert statements.
 
-### `require()` Statement
+* require() Statement
 
-The `require()` statement is used to validate inputs and conditions before execution. If the condition is false, it reverts the transaction with an optional error message, saving gas.
+The require() statement is used to validate inputs and conditions before execution. If the condition is false, it reverts the transaction with an optional error message, saving gas.
 
 ```solidity
 function passportAcceptanceRequire(string memory _country, uint _age) public view returns(string memory) {
@@ -22,9 +22,9 @@ function passportAcceptanceRequire(string memory _country, uint _age) public vie
 }
 ```
 
-### `assert()` Statement
+* assert() Statement
 
-The `assert()` statement is used to check for conditions that should never be false. If the condition is false, it uses up all gas and reverts the transaction.
+The assert() statement is used to check for conditions that should never be false. If the condition is false, it uses up all gas and reverts the transaction.
 
 ```solidity
 function passportAcceptanceAssert(string memory _country, uint _age) public view returns(string memory) {
@@ -38,9 +38,9 @@ function passportAcceptanceAssert(string memory _country, uint _age) public view
 }
 ```
 
-### `revert()` Statement
+* revert() Statement
 
-The `revert()` statement is used to flag an error and revert the transaction with an optional error message.
+The revert() statement is used to flag an error and revert the transaction with an optional error message.
 
 ```solidity
 function passportAcceptanceRevert(string memory _country, uint _age) public view returns(string memory) {
@@ -57,9 +57,9 @@ function passportAcceptanceRevert(string memory _country, uint _age) public view
 }
 ```
 
-### Show Country Names
+* Show Country Names
 
-The `showCountryName()` function returns a string of all country names in the eligibility list.
+The showCountryName() function returns a string of all country names in the eligibility list.
 
 ```solidity
 function showCountryName() public view returns(string memory) {
@@ -73,9 +73,9 @@ function showCountryName() public view returns(string memory) {
 
 ## Authors
 
-- **Name:** Vibhansh Alok
-- **MetacrafterID:** RuffledZest (vibhanshalok@gmail.com)
-- **Loom Video Link:** https://www.loom.com/share/ee7a9ed81b5a453eae283438b1ca42e6
+- Name: Vibhansh Alok
+- MetacrafterID: RuffledZest (vibhanshalok@gmail.com)
+- Loom Video Link: https://www.loom.com/share/ee7a9ed81b5a453eae283438b1ca42e6
 
 ## License
 
